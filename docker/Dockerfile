@@ -13,4 +13,4 @@ RUN pip install .
 
 EXPOSE 5000
 
-CMD []
+CMD python iris_api/api_minimal.py
