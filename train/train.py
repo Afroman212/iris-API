@@ -12,5 +12,7 @@ converter = {0: 'setosa', 1: 'versicolor', 2: 'virginica'}
 df.replace({'target': converter}, inplace=True)
 
 model = IrisPipeline()
-model.fit(df.drop(['target']), df['target'])
+X = df.drop(['target'], axis=1)
+y = df['target']
+model.fit(X, y)
 model.save(directory=MODEL_PATH)
