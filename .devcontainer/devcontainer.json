@@ -1,0 +1,8 @@
+{
+    "name": "Container environment",
+    "dockerComposeFile": "../docker/docker-compose.yml",
+    "service": "ml_api",
+    "workspaceFolder": "/project",
+    "appPort": [5000],
+    "extensions": ["ms-python.python"]
+}

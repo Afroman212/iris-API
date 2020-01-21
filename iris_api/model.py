@@ -5,8 +5,7 @@ import joblib
 from sklearn.base import BaseEstimator, ClassifierMixin
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import OneHotEncoder
-from sklearn.preprocessing import LabelEncoder
+from sklearn.preprocessing import OneHotEncoder, LabelEncoder, StandardScaler
 import requests
 
 
@@ -41,9 +40,9 @@ class IrisPipeline(BaseEstimator, ClassifierMixin):
         self.le.fit(y_var)
         y_var_adjusted = self.le.transform(y_var)
         self.model = Pipeline([
-            (),
-            (),
-            ()
+            ('stdscaler', StandardScaler()),
+            ('', RandomForestClassifier(n_estimators=150, n_jobs=-1,
+                                        random_state=420)),
         ])
 
         self.model.fit(x_var, y_var_adjusted)
