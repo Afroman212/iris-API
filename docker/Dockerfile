@@ -10,8 +10,9 @@ COPY /requirements.txt .
 RUN pip install -r requirements.txt
 COPY . .
 RUN pip install .
+RUN pip install -e .
 
 EXPOSE 5000/udp
 EXPOSE 5000/tcp
 
-CMD python iris_api/api_minimal.py
+CMD python iris_api/app.py
