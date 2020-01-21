@@ -3,6 +3,7 @@ pylint~=2.3.0
 pycodestyle~=2.4.0
 coverage~=4.5.1
 pytest~=5.1.2
+ipython~=7.10.0
 #ML
 scikit-learn~=0.21.2
 pandas~=0.24.2
