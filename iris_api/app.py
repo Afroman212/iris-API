@@ -1,7 +1,7 @@
 # Dependencies
 from flask import Flask, request, jsonify, json
 import requests as req
-from flask_restplus import Api
+from flask_restplus import Api, Resource
 import pandas as pd
 import numpy as np
 from iris_api.model import IrisPipeline
@@ -10,12 +10,12 @@ from iris_api import MODEL_PATH, VERSION
 
 model = IrisPipeline()
 model.load(directory=MODEL_PATH)
-flask_app = Flask(__name__)
-app = Api(app=flask_app)
+app = Flask(__name__)
+api = Api(app)
 
 
-@app.route('/health')
-class Health:
+@api.route('/health')
+class Health(Resource):
     """
 
     """
@@ -32,8 +32,8 @@ class Health:
         })
 
 
-@app.route('/predict')
-class Predict:
+@api.route('/predict')
+class Predict(Resource):
     """
 
     """
@@ -76,4 +76,4 @@ class Predict:
 
 if __name__ == '__main__':
     port = 5000
-    app.run(port=port, debug=True)
+    app.run(port=port, debug=True, host='0.0.0.0')
