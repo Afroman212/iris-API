@@ -1,8 +1,10 @@
 FROM python:3.7-slim
 
-MAINTAINER Curtly Blows <curtlyblows@gmail.com>
+LABEL author="Curtly Blows" 
 
 RUN mkdir -p /var/log
+ENV FLASK_APP=iris_api/app.py
+ENV FLASK_RUN_HOST=0.0.0.0
 
 WORKDIR /project
 
@@ -15,4 +17,4 @@ RUN pip install -e .
 EXPOSE 5000/udp
 EXPOSE 5000/tcp
 
-CMD python iris_api/app.py
+CMD ["python3", "-m" , "flask", "run"]
