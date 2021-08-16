@@ -67,6 +67,7 @@ class IrisPipeline(BaseEstimator, ClassifierMixin):
         if not path.exists(directory):
             mkdir(directory)
         joblib.dump(self.model, path.join(directory, 'IrisModel.pkl'))
+        joblib.dump(self.le, path.join(directory, 'Le.pkl'))
 
     def load(self, directory):
         """
@@ -75,3 +76,4 @@ class IrisPipeline(BaseEstimator, ClassifierMixin):
         :return:
         """
         self.model = joblib.load(path.join(directory, 'IrisModel.pkl'))
+        self.le = joblib.load(path.join(directory, 'Le.pkl'))

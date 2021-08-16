@@ -23,9 +23,22 @@ def test_data():
 
 
 @pytest.fixture(scope="session")
-def test_pickle():
-    os.mkdir('temp')
+def test_pickle_mod():
+    try:
+        os.mkdir('temp')
+    except FileExistsError:
+        pass
     read_data = pickle.dump(np.zeros(10), open('./temp/IrisModel.pkl', 'wb'))
+    return read_data
+
+
+@pytest.fixture(scope="session")
+def test_pickle_le():
+    try:
+        os.mkdir('temp')
+    except FileExistsError:
+        pass
+    read_data = pickle.dump(np.zeros(10), open('./temp/Le.pkl', 'wb'))
     return read_data
 
 
@@ -71,14 +84,25 @@ def test_fit(test_data):
     model.fit(X, y)
 
 
-def test_load(test_pickle):
+def test_load(test_pickle_mod, test_pickle_le):
     model = IrisPipeline()
-    model.load('./')
+    model.load('./temp/')
 
 
-def test_save(test_data, test_pickle):
+def test_save(test_data, test_pickle_mod):
     model = IrisPipeline()
     X = test_data.drop(['target'], axis=1)
     y = test_data['target']
     model.fit(X, y)
     model.save('./temp/')
+
+
+def test_predict(test_data):
+    model = IrisPipeline()
+    model.load(directory=MODEL_PATH)
+    X = test_data.drop(['target'], axis=1)
+    y_pred = test_data['target'].values
+    prediction, label = model.predict(X)
+    
+    np.testing.assert_array_equal(prediction, y_pred)
+    assert label[0] == 'Iris'
